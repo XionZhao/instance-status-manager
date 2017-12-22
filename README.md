@@ -8,28 +8,31 @@
 go get -u github.com/aws/aws-sdk-go
 ```
 
-## 修改tag
-进入到`stop_tag_instance`和`start_tag_instance`
-```
-$ vim main.go
-const (
-	tagkey   string = "Env"
-	tagvalue string = "SystemTest"
-)
-
-tagkey对应aws tag的key
-tagvalue对应aws tag的value
-```
 ## Build
 
 ```
-$ cd start_tag_instance
-$ go build .
-
-$ cd stop_tag_instance
 $ go build .
 ```
 
+## 执行命令
+```
+$ ./instance-status-manager -h
+Usage of ./instance-status-manager:
+  -status string
+    	Select start or stop
+  -tagkey string
+    	Choose to stop or start ec2 tag key
+  -tagvalue string
+    	Choose to stop or start ec2 tag value
+```
+### 启动实例
+```
+./instance-status-manager -tagkey=Name -tagvalue=SystemTest -status=start
+```
+### 停止实例
+```
+./instance-status-manager -tagkey=Name -tagvalue=SystemTest -status=stop
+```
 ## 执行crontab
 
 可以根据需求进行stop和start
